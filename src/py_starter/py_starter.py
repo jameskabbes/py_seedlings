@@ -216,6 +216,12 @@ def json_to_dict( string: str ) -> dict:
 
     return json.loads( string )
 
+def json_to_object( string: str, object_hook ):
+
+    """Given a json string, turn it into an object"""
+
+    return json.loads( string, object_hook=object_hook)
+
 def import_module_from_path(path: str, module_name: str = 'new_module') -> Any:
 
     """Given a path to a python module, load and return the module"""
@@ -378,6 +384,18 @@ def try_operation_wrap( *dec_args, debug = False, **dec_kwargs):
         return wrapper
 
     return try_operation_decorator
+
+
+class Settings:
+
+    """give a nested dictionary and turn it into nested class attributes"""
+
+    def __init__(self, **kwargs):
+        for key, value in kwargs.items():
+            if isinstance(value, dict):
+                self.__dict__[key] = Settings(**value)
+            else:
+                self.__dict__[key] = value
 
 
 def run( *sys_args ):
