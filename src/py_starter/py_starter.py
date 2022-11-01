@@ -397,6 +397,9 @@ class Settings:
             else:
                 self.__dict__[key] = value
 
+    def __getitem__(self, item):
+        return self.__dict__[item]
+
 
 def run( *sys_args ):
 
