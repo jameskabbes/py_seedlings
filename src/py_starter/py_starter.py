@@ -9,6 +9,7 @@ import os
 import re
 import platform
 import subprocess
+import sys
 
 from typing import List, Any
 
@@ -328,6 +329,29 @@ def get_user_selection_for_list_items( iterable,
             print ( str(list_iterable[index]) + ' already added to the queue')
 
     return inds
+
+def get_system_input_arguments():
+
+    """parse system inputs, send back args and kwargs"""
+
+    system_inputs = sys.argv[1:]
+
+    on_args = True
+
+    args = []
+    kwargs = {}
+
+    for arg in system_inputs:
+        if '=' in arg:
+            on_args = False #on_kwargs
+
+        if on_args:
+            args.append( arg )
+        else:
+            att, value = arg.split( '=' ) 
+            kwargs[att] = value
+
+    return args, kwargs
 
 
 def confirm_raw( string: str = ''  ) -> bool:
