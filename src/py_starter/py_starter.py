@@ -265,7 +265,7 @@ def find_kwargs_in_strings( strings: List[str] ):
     
     return args, kwargs
 
-def get_selection_from_list( iterable, prompt: str = 'Select one', print_off: bool = True ) -> Any:
+def get_selection_from_list( iterable, prompt: str = 'Select one', print_off: bool = True, allow_null: bool = False ) -> Any:
 
     """Returns the Object from iterable that the user selected"""
 
@@ -278,7 +278,14 @@ def get_selection_from_list( iterable, prompt: str = 'Select one', print_off: bo
             if print_off:
                 print_for_loop( [ str(i) for i in iterable ] )
 
-            ind = get_int_input( 1, len(iterable), prompt=prompt ) 
+            if allow_null:
+                ind = get_int_input( 1, len(iterable), prompt=prompt, exceptions=[''] ) 
+                if ind == '':
+                    return None
+
+            else:
+                ind = get_int_input( 1, len(iterable), prompt=prompt ) 
+
             return list(iterable)[ ind-1 ]
 
     else:
