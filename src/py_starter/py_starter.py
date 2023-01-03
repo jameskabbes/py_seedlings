@@ -417,39 +417,6 @@ def try_operation_wrap( *dec_args, debug = False, **dec_kwargs):
     return try_operation_decorator
 
 
-class Settings:
-
-    """give a nested dictionary and turn it into nested class attributes"""
-
-    def __init__(self, **kwargs):
-        for key, value in kwargs.items():
-            if isinstance(value, dict):
-                self.__dict__[key] = Settings(**value)
-            else:
-                self.__dict__[key] = value
-
-    def __getitem__(self, item):
-        return self.__dict__[item]
-
-    def merge( left, right, how = 'left' ):
-
-        if how == 'right':
-            left, right = right, left
-
-        left.__dict__.update( right.__dict__ )
-        return Settings( **left.__dict__ )
-
-    def print( self, tab = 0 ):
-
-        for key in self.__dict__:
-            print ('\t'*tab + key)
-
-            value = self.__dict__[ key ]
-
-            if not isinstance( value, Settings ):
-                print ('\t'*(tab+1)+str(value))
-            else:
-                value.print( tab=tab+1 )
 
 def run( *sys_args ):
 
