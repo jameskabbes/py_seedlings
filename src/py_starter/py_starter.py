@@ -356,9 +356,20 @@ def get_system_input_arguments():
             args.append( arg )
         else:
             att, value = arg.split( '=' ) 
+            value = get_special_string( value )
             kwargs[att] = value
 
     return args, kwargs
+
+def get_special_string( string ):
+
+    mapping = {
+        "True": True
+    }
+
+    if string in mapping:
+        return mapping[string]
+    return string
 
 
 def confirm_raw( string: str = ''  ) -> bool:
