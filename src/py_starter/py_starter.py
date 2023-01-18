@@ -364,7 +364,8 @@ def get_system_input_arguments():
 def get_special_string( string ):
 
     mapping = {
-        "True": True
+        "True": True,
+        "False": False
     }
 
     if string in mapping:
