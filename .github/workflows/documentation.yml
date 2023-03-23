@@ -27,7 +27,11 @@ jobs:
           touch .nojekyll
       - uses: actions/checkout@master
       - name: Build and Commit
-        uses: sphinx-notes/pages@v2
+        uses: sphinx-notes/pages@v3
+        with:
+          documentation_path:  ./src
+          requirements_path: ./requirements.txt
+
       - name: commit to gh-pages
         run: |
           git push origin gh-pages
