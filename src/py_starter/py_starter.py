@@ -9,6 +9,7 @@ import os
 import re
 import platform
 import subprocess
+import sys
 
 from typing import List, Any
 
@@ -216,6 +217,12 @@ def json_to_dict( string: str ) -> dict:
 
     return json.loads( string )
 
+def json_to_object( string: str, object_hook ):
+
+    """Given a json string, turn it into an object"""
+
+    return json.loads( string, object_hook=object_hook)
+
 def import_module_from_path(path: str, module_name: str = 'new_module') -> Any:
 
     """Given a path to a python module, load and return the module"""
@@ -258,7 +265,7 @@ def find_kwargs_in_strings( strings: List[str] ):
     
     return args, kwargs
 
-def get_selection_from_list( iterable, prompt: str = 'Select one', print_off: bool = True ) -> Any:
+def get_selection_from_list( iterable, prompt: str = 'Select one', print_off: bool = True, allow_null: bool = False ) -> Any:
 
     """Returns the Object from iterable that the user selected"""
 
@@ -271,7 +278,14 @@ def get_selection_from_list( iterable, prompt: str = 'Select one', print_off: bo
             if print_off:
                 print_for_loop( [ str(i) for i in iterable ] )
 
-            ind = get_int_input( 1, len(iterable), prompt=prompt ) 
+            if allow_null:
+                ind = get_int_input( 1, len(iterable), prompt=prompt, exceptions=[''] ) 
+                if ind == '':
+                    return None
+
+            else:
+                ind = get_int_input( 1, len(iterable), prompt=prompt ) 
+
             return list(iterable)[ ind-1 ]
 
     else:
@@ -322,6 +336,41 @@ def get_user_selection_for_list_items( iterable,
             print ( str(list_iterable[index]) + ' already added to the queue')
 
     return inds
+
+def get_system_input_arguments():
+
+    """parse system inputs, send back args and kwargs"""
+
+    system_inputs = sys.argv[1:]
+
+    on_args = True
+
+    args = []
+    kwargs = {}
+
+    for arg in system_inputs:
+        if '=' in arg:
+            on_args = False #on_kwargs
+
+        if on_args:
+            args.append( arg )
+        else:
+            att, value = arg.split( '=' ) 
+            value = get_special_string( value )
+            kwargs[att] = value
+
+    return args, kwargs
+
+def get_special_string( string ):
+
+    mapping = {
+        "True": True,
+        "False": False
+    }
+
+    if string in mapping:
+        return mapping[string]
+    return string
 
 
 def confirm_raw( string: str = ''  ) -> bool:
@@ -378,6 +427,7 @@ def try_operation_wrap( *dec_args, debug = False, **dec_kwargs):
         return wrapper
 
     return try_operation_decorator
+
 
 
 def run( *sys_args ):
