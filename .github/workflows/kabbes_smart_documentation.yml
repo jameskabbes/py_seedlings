@@ -18,9 +18,9 @@ jobs:
           python -m pip install kabbes_smart_documentation
           python -m pip install -r requirements.txt
 
-      - name: add .nojekyll
+      - name: add docs/.nojekyll
         run: |
-          touch .nojekyll
+          touch docs/.nojekyll
 
       - name: Generate Smart Doc files
         run: |
@@ -36,7 +36,6 @@ jobs:
           git config --global user.email "james.kabbes@gmail.com"
           git config --global user.name "James Kabbes"
           git add docs
-          git add .nojekyll
           git commit -m "kabbes_smart_documentation workflow"
 
       - name: Push changes
