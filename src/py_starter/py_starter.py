@@ -10,10 +10,16 @@ import re
 import platform
 import subprocess
 import sys
-
+import configparser
 from typing import List, Any
 
 ### Helpful python functions
+
+def read_config( path ):
+
+    config = configparser.ConfigParser()
+    config.read(path)
+    return config
 
 def get_int_input( lower: int, upper: int, prompt: str = 'Enter an number: ', exceptions: List[str] = [], show_range: bool = True ) -> str:
 
