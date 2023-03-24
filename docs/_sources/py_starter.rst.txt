@@ -1,0 +1,21 @@
+py\_starter package
+===================
+
+Submodules
+----------
+
+py\_starter.py\_starter module
+------------------------------
+
+.. automodule:: py_starter.py_starter
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: py_starter
+   :members:
+   :undoc-members:
+   :show-inheritance:
