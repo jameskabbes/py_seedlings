@@ -1,8 +1,8 @@
-[GitHub Pages](https://jameskabbes.github.io/py_starter)<br>
-[PyPI](https://pypi.org/project/kabbes-py-starter)
-
 # py_starter
-Helpful python starter functions for various repository use
+Helpful python starter functions for various repository use <br>
+
+[Documentation](https://jameskabbes.github.io/py_starter)<br>
+[PyPI](https://pypi.org/project/kabbes-py-starter)
 
 <br>
 
