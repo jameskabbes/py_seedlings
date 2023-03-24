@@ -18,13 +18,13 @@ jobs:
           python -m pip install kabbes_smart_documentation
           python -m pip install -r requirements.txt
 
-      - name: add .nojekyll
+      - name: add docs/.nojekyll
         run: |
-          touch .nojekyll
+          touch docs/.nojekyll
 
       - name: Generate Smart Doc files
         run: |
-          python -m kabbes_smart_documentation kabbes_smart_documentation.template.name=sphinx user_profile.profile.first_name=James user_profile.profile.last_name=Kabbes user_profile.profile.github.username=jameskabbes user_profile.profile.pypi.username=kabbes user_profile.profile.email=james.kabbes@gmail.com
+          python -m kabbes_smart_documentation kabbes_smart_documentation.template.name=sphinx user_profile.profile.first_name={-{first_name}-} user_profile.profile.last_name={-{last_name}-} user_profile.profile.github.username={-{github_username}-} user_profile.profile.pypi.username={-{pypi_username}-} user_profile.profile.email={-{email}-}
 
       - uses: actions/checkout@master
         with:
@@ -33,10 +33,9 @@ jobs:
 
       - name: commit to gh-pages
         run: |
-          git config --global user.email "james.kabbes@gmail.com"
-          git config --global user.name "James Kabbes"
+          git config --global user.email "{-{email}-}"
+          git config --global user.name "{-{name}-}"
           git add docs
-          git add .nojekyll
           git commit -m "kabbes_smart_documentation workflow"
 
       - name: Push changes
