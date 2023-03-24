@@ -33,7 +33,6 @@ jobs:
 
       - name: commit to gh-pages
         run: |
-          git checkout gh-pages
           git add docs
           git add .nojekyll
           git commit -m "kabbes_smart_documentation workflow"
