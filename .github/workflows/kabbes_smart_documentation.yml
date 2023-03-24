@@ -33,6 +33,8 @@ jobs:
 
       - name: commit to gh-pages
         run: |
+          git config --global user.email "james.kabbes@gmail.com"
+          git config --global user.name "James Kabbes"
           git add docs
           git add .nojekyll
           git commit -m "kabbes_smart_documentation workflow"
