@@ -24,7 +24,7 @@ jobs:
 
       - name: Generate Smart Doc files
         run: |
-          python -m kabbes_smart_documentation kabbes_smart_documentation.template.name=sphinx user_profile.profile.name=James_Kabbes user_profile.profile.github.username=jameskabbes user_profile.profile.pypi.username=kabbes user_profile.profile.email=james.kabbes@gmail.com
+          python -m kabbes_smart_documentation kabbes_smart_documentation.template.name=sphinx user_profile.profile.first_name=James user_profile.profile.first_name=Kabbes user_profile.profile.github.username=jameskabbes user_profile.profile.pypi.username=kabbes user_profile.profile.email=james.kabbes@gmail.com
 
       - uses: actions/checkout@master
         with:
