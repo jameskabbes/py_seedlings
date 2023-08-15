@@ -2,7 +2,7 @@
 Helpful python starter functions for various repository use <br>
 
 [Documentation](https://jameskabbes.github.io/py_seedlings)<br>
-[PyPI](https://pypi.org/project/kabbes-py-seedlings)
+[PyPI](https://pypi.org/project/py-seedlings)
 
 <br>
 
