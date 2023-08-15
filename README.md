@@ -1,13 +1,13 @@
-# py_starter
+# py_seedlings
 Helpful python starter functions for various repository use <br>
 
-[Documentation](https://jameskabbes.github.io/py_starter)<br>
-[PyPI](https://pypi.org/project/kabbes-py-starter)
+[Documentation](https://jameskabbes.github.io/py_seedlings)<br>
+[PyPI](https://pypi.org/project/kabbes-py-seedlings)
 
 <br>
 
 # Installation
-`pip install kabbes_py_starter`
+`pip install py_seedlings`
 
 <br>
 
@@ -27,14 +27,6 @@ ps.print_for_loop( ['Apple','Strawberry','Banana'] )
 1. Apple
 2. Strawberry
 3. Banana
-```
-
-```python
-ps.merge_two_dicts( {'A':'Alpha','C':'Nothing'}, {'B':'Bravo':'C':'Charlie'} )
-```
-
-```
->>> {'A':'Alpha','B':'Bravo','C':'Charlie'}
 ```
 
 <br>
