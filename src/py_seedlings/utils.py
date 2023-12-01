@@ -72,35 +72,39 @@ def strip_trigger( string: str, trigger_beg: str = '{{', trigger_end: str = '}}'
     
     return string[ a:b ]
 
-def format( string: str, formatting_dict: dict={}, trigger_beg: str = '{{', trigger_end: str = '}}', **formatting_kwargs ) -> str:
+def format( string: str, placeholder_beg: str = '{{', placeholder_end: str = '}}', formatting_dict: dict={}, **formatting_kwargs ) -> str:
 
-    """Given a string with variables hidden inside triggers, replace these variables with values defined in `formatted_dict` or `formatting_kwargs`
-    Similar to Python's builtin str.format( **kwargs ), with the ability to define your own triggers
+    """
+    Similar to Python's builtin str.format( **kwargs ), with the ability to define your own placeholders
+    Given a string with keys hidden inside {{placeholders}}, replace all keys with values defined in `formatted_dict` or `formatting_kwargs`
     """
 
     d = { **formatting_dict, **formatting_kwargs } #kwargs take preference
+    for key in d: #{ 'name': 'Alice' }
+        string = re.sub( 
+            r'{0}{1}{2}'.format( re.escape(placeholder_beg), key, re.escape(placeholder_end) ), # '{{name}}'
+            d[key], # 'Alice'
+            string
+        )
 
-    for key in d: #{ 'first_name': 'Joe' }  
-        to_replace = trigger_beg + key + trigger_end # '{{first_name}}'
-        string = string.replace( to_replace, d[key] ) # '{{first_name}}' -> 'Joe
     return string
 
-def find_format_triggers( string: str, trigger_beg: str = '{{', trigger_end: str = '}}', include_triggers:bool=True ) -> List[str]:
+def find_format_keys( string: str, placeholder_beg: str = '{{', placeholder_end: str = '}}', include_placeholders:bool=True ) -> List[str]:
 
     """
     Given string="Hello, this is {{first_name}} {{last_name}}" returns
-    ["{{first_name}}", "{{last_name}}"] when include_triggers=True
-    ["first_name", "last_name"] when include_triggers=False
+    ["{{first_name}}", "{{last_name}}"] when include_placeholders=True
+    ["first_name", "last_name"] when include_placeholders=False
     """
 
     capture_key = '.*?'
-    if not include_triggers:
+    if not include_placeholders:
         capture_key = '(' + capture_key + ')'
 
-    return re.findall( r'{trigger_beg}{capture_key}{trigger_end}'.format( trigger_beg=re.escape(trigger_beg), 
-                                                                          capture_key=capture_key,
-                                                                          trigger_end=re.escape(trigger_end) 
-                                                                        ), string )
+    return re.findall( 
+                r'{0}{1}{2}'.format( re.escape(placeholder_beg), capture_key, re.escape(placeholder_end) ),
+                string 
+            )
 
 def command_line( string: str, print_off: bool = False ) -> None:
 
